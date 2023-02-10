@@ -1,0 +1,5 @@
+Sys.setenv(http_proxy="http://proxy.gov.si:80")
+Sys.setenv(http_proxy_user="http://proxy.gov.si:80")
+Sys.setenv(https_proxy="http://proxy.gov.si:80")
+Sys.setenv(https_proxy_user="http://proxy.gov.si:80")
+source("renv/activate.R")
