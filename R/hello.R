@@ -1,18 +1,3 @@
-#' Lookup fun
-#'
-#' @param x character string
-#'
-#' @return numeric code or error
-#' @export
-#'
-codes <- function(x){
-  switch(x,
-         "Test" = 1,
-         "Te\u0161t" = 2,
-         "\u010d\u0161\u017e" = 3,
-         stop(paste0("nope, isn't working for", x)))
-}
-
 #' Pipeline fun
 #'
 #' Reads excel table from file and uses the lookup function
@@ -26,11 +11,13 @@ codes <- function(x){
 test <- function(path){
 
   df <- readxl::read_excel(path )
-
+  info <- data.frame(code = 1:3,
+                     desc = c( "Test",
+                               "Te\u0161t",
+                               "\u010d\u0161\u017e"))
   df %>%
     dplyr::rowwise() %>%
-    dplyr::mutate(code = ifelse(!is.na(V1), codes(V1), NA))
+    dplyr::mutate(code = ifelse(is.na(match(V1, info$desc)), V1, match(V1, info$desc)))
 }
-
 
 
